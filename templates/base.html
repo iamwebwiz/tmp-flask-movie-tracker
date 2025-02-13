@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Movie Tracker{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">Movie Tracker</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('app_routes.watchlist') }}">Watchlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('app_routes.profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="/logout" method="POST" class="d-inline">
+                            <button type="submit" class="nav-link btn">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('app_routes.login') }}">Login</a>
+                    </li>
+                    <!-- <li class="nav-item">
+              <form
+                method="post"
+                action="#"
+                id="signin"
+                class="signin signin-form js-header-signin-form js-signin"
+                data-url="/user/login.do"
+                data-recaptcha-action="signin"
+                novalidate="novalidate"
+                autocorrect="off"
+                autocapitalize="off"
+              >
+                <input type="hidden" name="__csrf" value="placeholder" />
+                <input type="hidden" name="authenticationCode" value="" />
+                <fieldset class="fieldset">
+                  <div class="fields">
+                    <div class="col">
+                      <label for="username">Username</label>
+                      <input
+                        type="email"
+                        name="username"
+                        id="username"
+                        class="field signin-field"
+                        tabindex="1"
+                        data-focus-control="signingIn"
+                        autocomplete="email"
+                        inputmode="email"
+                        value=""
+                      />
+                    </div>
+                    <div class="col">
+                      <label for="password">Password</label>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="field signin-field"
+                        tabindex="2"
+                        autocomplete="current-password"
+                        value=""
+                      />
+                    </div>
+                    <div class="signin-actions">
+                      <label
+                        for="remember"
+                        class="option-label -checkbox -small"
+                      >
+                        <input
+                          type="checkbox"
+                          name="remember"
+                          id="remember"
+                          class="checkbox"
+                          tabindex="3"
+                          value="true"
+                        /><i class="substitute"></i>
+                        <span class="focus"
+                          >Remember<span class="mob-hide"> me</span></span
+                        >
+                      </label>
+                      <p class="reset" tabindex="5">
+                        <a
+                          class="reset-password-link"
+                          href="/user/request-password-reset"
+                          target="_top"
+                          >Forgotten<span class="elongated">
+                            username or password</span
+                          >?</a
+                        >
+                      </p>
+                    </div>
+                    <div class="col buttons">
+                      <div class="button-container">
+                        <input
+                          type="submit"
+                          value="Sign in"
+                          class="button -action button-green"
+                          tabindex="4"
+                        /><i></i>
+                      </div>
+                      <div class="close js-close-signin">&times;</div>
+                    </div>
+                  </div>
+                </fieldset>
+                <div id="signin-message" class="errormessage"></div>
+              </form>
+            </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('app_routes.register') }}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    <div class="header-container">
+        <h1 class="welcome-header">Welcome to Movie Tracker!</h1>
+    </div>
+
+    <br />
+    <div class="image-container">
+        <img class="film-image"
+            src="https://media.istockphoto.com/id/1342012371/vector/detailed-silhouette-of-vintage-cinema-projector-or-camcorder-on-a-tripod-cinema-background.jpg?s=612x612&w=0&k=20&c=RsqTgPQrs8Rltj0ZszdOCrSRMuVqWBPaHg6xKnBejg0="
+            alt="Film Projector" width="350" />
+    </div>
+
+    <div class="text-center mt-5">
+        <!-- <h1>Welcome to Movie Tracker</h1> -->
+        <p class="lead">
+            Search for movies, add them to your watchlist, and track what you've
+            watched!
+        </p>
+
+        <!-- Search Form -->
+        <form action="{{ url_for('app_routes.search_movie') }}" method="get">
+            <input type="text" name="movie_name" placeholder="Enter movie name" required />
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- If user is logged in, show their watchlist button -->
+        <!-- {% if current_user.is_authenticated %} -->
+        <div class="mt-4">
+            <a href="{{ url_for('app_routes.watchlist') }}" class="btn btn-success">View My Watchlist</a>
+        </div>
+        <!-- {% else %} -->
+        <div class="mt-4">
+            <p>
+                <a href="{{ url_for('app_routes.login') }}" class="btn btn-warning">Login</a>
+                or
+                <a href="{{ url_for('app_routes.register') }}" class="btn btn-info">Register</a>
+                to start tracking movies.
+            </p>
+        </div>
+        <!-- {% endif %} -->
+    </div>
+    {% endblock %}
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Navbar Styling */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.film-image {
+  display: block;
+  margin: 0px auto; /* Centers image horizontally */
+}
+
+.welcome-header {
+  font-size: 2.5rem; /* Bigger text */
+  text-align: center; /* Centers text */
+  font-weight: bold; /* Makes text bold */
+  color: #333; /* Optional: Adjusts text color */
+  margin-top: 30px; /* Adds spacing above */
+}
+/* Centered Content */
+.container {
+  max-width: 900px;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Movie Search Form */
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+input[type="text"] {
+  width: 60%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Movie List */
+.movie-list {
+  list-style: none;
+  padding: 0;
+}
+.movie-list li {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Movie Poster */
+.movie-poster {
+  width: 100px;
+  border-radius: 5px;
+}
+
+/* Watchlist Page */
+.watchlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.watchlist-item .title {
+  font-weight: bold;
+}
+
+/* Mark as Watched Button */
+.watched-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.watched-btn:hover {
+  background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .movie-list li {
+    flex-direction: column;
+    text-align: center;
+  }
+  .movie-poster {
+    width: 80px;
+  }
+  .container {
+    width: 90%;
+  }
+  form {
+    padding: 15px;
+  }
+}

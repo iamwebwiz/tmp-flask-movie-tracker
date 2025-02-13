@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %}Your Watchlist - Movie Tracker{%
+endblock %} {% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Your Watchlist</h1>
+
+    {% if movies %}
+    <div class="row justify-content-center">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ movie.poster }}" class="card-img-top" alt="Movie Poster" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text"><strong>Year:</strong> {{ movie.year }}</p>
+                    {% if movie.watched %}
+                    <p class="text-success"><strong>✅ Watched</strong></p>
+                    {% else %}
+                    <button type="button" class="btn btn-warning mark-watched" data-movie-id="{{ movie.id }}">
+                        Mark as Watched
+                    </button>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center">Your watchlist is empty. Start adding movies!</p>
+    {% endif %}
+</div>
+{% endblock %}
